@@ -1,0 +1,53 @@
+﻿@page "/sets"
+@using OptcgExplorer.UseCases.Features.Sets.GetSets
+@inject GetSetsHandler GetSetsHandler
+
+<h3>CardSetsPage</h3>
+
+@if(_result is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>Set Id</tr>
+            <tr>Set Name</tr>
+        </thead>
+        <tbody>
+            @foreach (var set in _result.Sets)
+            {
+                <tr>
+                    <td>@set.SetId</td>
+                    <td>@set.SetName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+@code {
+
+    private GetSetsResult? _result;
+    private bool _isLoading = true;
+    private string? _errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _result = await GetSetsHandler.HandleAsync(
+                new GetSetsQuery());
+
+            _isLoading = false;
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = ex.Message;
+            _isLoading = false;
+        }
+    }
+}

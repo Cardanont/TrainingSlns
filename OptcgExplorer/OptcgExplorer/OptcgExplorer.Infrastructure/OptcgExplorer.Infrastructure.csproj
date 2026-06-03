@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="DependencyInjection\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OptcgExplorer.Core\OptcgExplorer.Core.csproj" />
+    <ProjectReference Include="..\OptcgExplorer.UseCases\OptcgExplorer.UseCases.csproj" />
+  </ItemGroup>
+
+</Project>

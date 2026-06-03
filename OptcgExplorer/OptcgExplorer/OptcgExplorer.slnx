@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="OptcgExplorer.Core/OptcgExplorer.Core.csproj" />
+    <Project Path="OptcgExplorer.Infrastructure/OptcgExplorer.Infrastructure.csproj" />
+    <Project Path="OptcgExplorer.UseCases/OptcgExplorer.UseCases.csproj" />
+    <Project Path="OptcgExplorer.Web/OptcgExplorer.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="OptcgExplorer.Core.Tests/OptcgExplorer.Core.Tests.csproj" />
+    <Project Path="OptcgExplorer.UseCases.Tests/OptcgExplorer.UseCases.Tests.csproj" />
+  </Folder>
+</Solution>

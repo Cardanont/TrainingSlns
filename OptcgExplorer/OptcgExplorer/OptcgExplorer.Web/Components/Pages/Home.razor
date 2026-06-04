@@ -1,7 +1,157 @@
-﻿@page "/"
+﻿@* Home.razor *@
+@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Grand Card Line — One Piece TCG Explorer</PageTitle>
 
-<h1>Hello, world!</h1>
+<!-- ░░ HERO ░░ -->
+<section class="hero">
+    <div class="hero-bg">
+        <div class="hero-ocean"></div>
+        <div class="hero-stars"></div>
+        <div class="hero-particles">
+            @for (int i = 0; i < 20; i++)
+            {
+                <div class="hero-particle" style="--i:@i"></div>
+            }
+        </div>
+    </div>
 
-Welcome to your new app.
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Powered by OPTCG API · OP-01 through OP-15
+        </div>
+
+        <h1 class="hero-title">
+            <span class="hero-title-top">THE GRAND</span>
+            <span class="hero-title-main">CARD LINE</span>
+            <span class="hero-title-sub">One Piece Trading Card Game Explorer</span>
+        </h1>
+
+        <p class="hero-description">
+            Navigate the seas of card data. Browse every character, event, stage and leader card
+            from the One Piece TCG — with live pricing, set breakdowns, and deck insights.
+        </p>
+
+        <div class="hero-actions">
+            <a href="/cards" class="btn-primary">
+                <span>⚓</span> Explore Cards
+            </a>
+            <a href="/sets" class="btn-secondary">
+                View Sets →
+            </a>
+        </div>
+
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-number">15+</span>
+                <span class="hero-stat-label">Card Sets</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <span class="hero-stat-number">1,000+</span>
+                <span class="hero-stat-label">Unique Cards</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <span class="hero-stat-number">Daily</span>
+                <span class="hero-stat-label">Price Updates</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <div class="hero-scroll-line"></div>
+    </div>
+</section>
+
+<!-- ░░ FEATURES ░░ -->
+<section class="features">
+    <div class="features-header">
+        <span class="section-eyebrow">What's on board</span>
+        <h2 class="section-title">Your Complete TCG Companion</h2>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card feature-card--large">
+            <div class="feature-icon">⚔️</div>
+            <h3>Card Database</h3>
+            <p>Every card from OP-01 through OP-15, starter decks and promos. Search by name, type, color, or set.</p>
+            <a href="/cards" class="feature-link">Browse Cards →</a>
+            <div class="feature-glow"></div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">💰</div>
+            <h3>Live Prices</h3>
+            <p>Fresh pricing data refreshed daily. Track the market value of any card over the past two weeks.</p>
+            <a href="/prices" class="feature-link">Check Prices →</a>
+            <div class="feature-glow"></div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📦</div>
+            <h3>Set Explorer</h3>
+            <p>Dive into individual sets, structure decks, and promo runs. Filter by rarity and card type.</p>
+            <a href="/sets" class="feature-link">View Sets →</a>
+            <div class="feature-glow"></div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🏴‍☠️</div>
+            <h3>DON!! Cards</h3>
+            <p>Explore the iconic DON!! energy cards that power up your deck strategies.</p>
+            <a href="/cards/don" class="feature-link">View DON!! →</a>
+            <div class="feature-glow"></div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>API Access</h3>
+            <p>Need raw data? The OPTCG API is free and open. Build your own apps with structured card data.</p>
+            <a href="https://www.optcgapi.com/documentation" target="_blank" class="feature-link">Read Docs →</a>
+            <div class="feature-glow"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ░░ MARQUEE SETS ░░ -->
+<section class="sets-marquee-section">
+    <div class="sets-marquee-track">
+        <div class="sets-marquee-inner">
+            @{
+                var sets = new[] {
+                    "OP-01 Romance Dawn", "OP-02 Paramount War", "OP-03 Pillars of Strength",
+                    "OP-04 Kingdoms of Intrigue", "OP-05 Awakening of the New Era",
+                    "OP-06 Wings of the Captain", "OP-07 500 Years in the Future",
+                    "OP-08 Two Legends", "OP-09 The Four Emperors",
+                    "OP-10 Royal Blood", "OP-11", "OP-12", "OP-13", "OP-14", "OP-15"
+                };
+            }
+            @foreach (var set in sets)
+            {
+                <span class="marquee-item"><span class="marquee-sep">⚓</span> @set</span>
+            }
+            @* duplicate for seamless loop *@
+            @foreach (var set in sets)
+            {
+                <span class="marquee-item"><span class="marquee-sep">⚓</span> @set</span>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ░░ CTA BANNER ░░ -->
+<section class="cta-section">
+    <div class="cta-inner">
+        <div class="cta-jolly">☠</div>
+        <h2 class="cta-title">Ready to set sail?</h2>
+        <p class="cta-sub">Start exploring thousands of One Piece cards, live prices, and full set data — all free.</p>
+        <div class="cta-actions">
+            <a href="/cards" class="btn-primary">Start Exploring</a>
+            <a href="https://www.optcgapi.com/documentation" target="_blank" class="btn-ghost">API Docs</a>
+        </div>
+    </div>
+</section>
+<Footer/>

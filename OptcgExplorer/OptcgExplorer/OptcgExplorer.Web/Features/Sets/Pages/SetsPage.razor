@@ -1,31 +1,66 @@
 ﻿@page "/sets"
+@using Microsoft.AspNetCore.Components.Web
 @using OptcgExplorer.UseCases.Features.Sets.GetSets
 @inject GetSetsHandler GetSetsHandler
 
-<h3>CardSetsPage</h3>
 
-@if(_result is null)
-{
-    <p>Loading...</p>
-}
-else
-{
-    <table>
-        <thead>
-            <tr>Set Id</tr>
-            <tr>Set Name</tr>
-        </thead>
-        <tbody>
-            @foreach (var set in _result.Sets)
-            {
-                <tr>
-                    <td>@set.SetId</td>
-                    <td>@set.SetName</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+
+<PageTitle>Card Sets — Grand Card Line</PageTitle>
+
+<div class="sets-page">
+
+    <div class="sets-hero">
+        <div class="sets-hero-bg"></div>
+        <div class="sets-hero-content">
+            <span class="sets-eyebrow">
+                <span class="sets-eyebrow-line"></span>
+                OPTCG API
+                <span class="sets-eyebrow-line"></span>
+            </span>
+            <h1 class="sets-title">Card Sets</h1>
+            <p class="sets-subtitle">Browse every official release — from OP-01 Romance Dawn to the latest expansion.</p>
+        </div>
+    </div>
+
+    <div class="sets-container">
+
+        @if (_result is null)
+        {
+            <div class="sets-loading">
+                <div class="sets-loading-skull">☠</div>
+                <p>Charting the seas…</p>
+            </div>
+        }
+        else
+        {
+            <div class="sets-count-bar">
+                <span class="sets-count-label">
+                    <span class="sets-count-number">@_result.Sets.Count()</span> sets found
+                </span>
+                <span class="sets-count-divider"></span>
+                <span class="sets-count-hint">One Piece Trading Card Game · English release</span>
+            </div>
+
+            <div class="sets-grid">
+                @foreach (var set in _result.Sets)
+                {
+                    <div class="set-card">
+                        <div class="set-card-glow"></div>
+                        <div class="set-card-top">
+                            <span class="set-id-badge">@set.SetId</span>
+                            <span class="set-card-anchor">⚓</span>
+                        </div>
+                        <h3 class="set-name">@set.SetName</h3>
+                        <a href="/sets/@set.SetId" class="set-card-cta">
+                            View Cards <span class="set-cta-arrow">→</span>
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+</div>
 
 
 

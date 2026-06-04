@@ -1,0 +1,51 @@
+﻿@* NavMenu.razor *@
+
+<input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
+
+<nav class="navbar">
+    <a class="nav-logo" href="/">
+        <div class="nav-menu-brand">
+            <div class="nav-logo-emblem">
+                <span class="nav-logo-jolly">☠</span>
+            </div>
+            <p class="nav-logo-text">
+                GRAND<span class="nav-logo-sub">Card Line</span>
+            </p>
+        </div>
+    </a>
+
+    <div class="nav-links">
+        <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
+        <NavLink href="/cards">Cards</NavLink>
+        <NavLink href="/sets">Sets</NavLink>
+        <NavLink href="/decks">Decks</NavLink>
+        <NavLink href="/prices">Prices</NavLink>
+        <NavLink href="/about">About</NavLink>
+    </div>
+
+    <div class="nav-right">
+        <a href="/cards" class="nav-cta">
+            <span class="nav-cta-icon">⚓</span> Explore Cards
+        </a>
+        <label for="nav-toggle" class="nav-hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+    </div>
+</nav>
+
+<div class="mobile-menu" onclick="document.getElementById('nav-toggle').checked=false">
+    <div class="mobile-menu-links">
+        <a href="/" @onclick:stopPropagation="false">Home</a>
+        <a href="/cards" @onclick:stopPropagation="false">Cards</a>
+        <a href="/sets" @onclick:stopPropagation="false">Sets</a>
+        <a href="/decks" @onclick:stopPropagation="false">Decks</a>
+        <a href="/prices" @onclick:stopPropagation="false">Prices</a>
+        <a href="/about" @onclick:stopPropagation="false">About</a>
+    </div>
+    <div class="mobile-menu-bottom">
+        <span class="mobile-menu-label">Set sail for adventure</span>
+        <a href="/cards" class="mobile-menu-cta">Explore Cards →</a>
+    </div>
+</div>

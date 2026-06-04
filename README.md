@@ -135,7 +135,7 @@ Install:
 ### Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/OptcgExplorer.git
+git clone https://github.com/Cardanont/TrainingSlns.git
 ```
 
 ```bash

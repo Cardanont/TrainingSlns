@@ -139,7 +139,7 @@ git clone https://github.com/Cardanont/TrainingSlns.git
 ```
 
 ```bash
-cd OptcgExplorer
+cd TrainingSlns
 ```
 
 ### Restore Packages

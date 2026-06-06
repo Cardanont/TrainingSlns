@@ -4,7 +4,9 @@ namespace OptcgExplorer.UseCases.Interfaces
 {
     public interface ISetService
     {
-        Task<IReadOnlyCollection<Set>> GetSetAsync(
+        Task<IReadOnlyCollection<Set>> GetSetsAsync(
             CancellationToken cancellationToken = default);
+
+        
     }
 }

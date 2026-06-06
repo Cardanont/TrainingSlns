@@ -14,7 +14,9 @@ namespace OptcgExplorer.Infrastructure.Services
             _httpClient = httpClient;
         }
 
-        public async Task<IReadOnlyCollection<Set>> GetSetAsync(CancellationToken cancellationToken = default)
+        
+
+        public async Task<IReadOnlyCollection<Set>> GetSetsAsync(CancellationToken cancellationToken = default)
         {
             var response = await _httpClient.GetFromJsonAsync<List<SetDto>>(
                 "api/allSets/",

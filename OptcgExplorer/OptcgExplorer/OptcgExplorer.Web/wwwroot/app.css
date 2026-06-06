@@ -1791,3 +1791,441 @@ img {
         grid-template-columns: 1fr 1fr;
     }
 }
+
+/* One Piece card color map — extend as needed */
+:root {
+    --card-color-red: #c0392b;
+    --card-color-blue: #2471a3;
+    --card-color-green: #1e8449;
+    --card-color-yellow: #b7950b;
+    --card-color-purple: #7d3c98;
+    --card-color-black: #566573;
+    --card-color-default: #7a7670;
+}
+
+/* ── Page wrapper ───────────────────────────────────────────── */
+.cards-page {
+    padding-top: var(--nav-height);
+    min-height: 100vh;
+}
+
+/* ── Hero ───────────────────────────────────────────────────── */
+.cards-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 72px 40px 56px;
+    text-align: center;
+}
+
+.cards-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 65% 70% at 50% 110%, rgba(192,57,43,0.08) 0%, transparent 60%), radial-gradient(ellipse 45% 40% at 85% 40%, rgba(200,146,42,0.06) 0%, transparent 55%), radial-gradient(ellipse 40% 35% at 10% 60%, rgba(26,188,156,0.04) 0%, transparent 50%), linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 100%);
+    pointer-events: none;
+}
+
+    .cards-hero-bg::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+    }
+
+.cards-hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.cards-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+
+.cards-eyebrow-line {
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold-dim);
+}
+
+.cards-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 45%, #e74c3c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 28px rgba(200,146,42,0.18));
+    line-height: 1;
+}
+
+.cards-subtitle {
+    font-size: 14px;
+    color: var(--text3);
+    letter-spacing: 0.04em;
+    max-width: 480px;
+    line-height: 1.7;
+}
+
+/* ── Container ──────────────────────────────────────────────── */
+.cards-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+}
+
+/* ── Count bar ──────────────────────────────────────────────── */
+.cards-count-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.cards-count-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--text2);
+}
+
+.cards-count-number {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-right: 4px;
+}
+
+.cards-count-divider {
+    width: 1px;
+    height: 14px;
+    background: var(--border-bright);
+    flex-shrink: 0;
+}
+
+.cards-count-hint {
+    font-size: 11px;
+    color: var(--text3);
+    font-style: italic;
+    letter-spacing: 0.04em;
+}
+
+/* ── Card grid ──────────────────────────────────────────────── */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* ── Individual card ────────────────────────────────────────── */
+.card-item {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    display: flex;
+    flex-direction: column;
+    transition: border-color var(--t-mid), transform var(--t-mid), box-shadow var(--t-mid);
+    cursor: pointer;
+}
+
+    .card-item:hover {
+        border-color: var(--border-bright);
+        transform: translateY(-6px);
+        box-shadow: 0 16px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(200,146,42,0.12);
+    }
+
+        .card-item:hover .card-item-glow {
+            opacity: 1;
+        }
+
+        .card-item:hover .card-item-image {
+            transform: scale(1.04);
+        }
+
+        .card-item:hover .card-item-image-overlay {
+            opacity: 0.15;
+        }
+
+        .card-item:hover .card-item-arrow {
+            transform: translateX(4px);
+        }
+
+/* Radial glow */
+.card-item-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(200,146,42,0.08) 0%, transparent 65%);
+    opacity: 0;
+    transition: opacity var(--t-mid);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Image block ────────────────────────────────────────────── */
+.card-item-image-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background: var(--bg2);
+    flex-shrink: 0;
+}
+
+.card-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* Subtle gradient overlay that deepens on hover */
+.card-item-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient( 180deg, transparent 40%, rgba(8,9,13,0.85) 100% );
+    opacity: 0.55;
+    transition: opacity var(--t-mid);
+}
+
+/* Rarity pill — floats over the image top-right */
+.card-item-rarity {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bg0);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    padding: 3px 9px;
+    border-radius: 100px;
+    line-height: 1.4;
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* ── Body ───────────────────────────────────────────────────── */
+.card-item-body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 16px 14px;
+    flex: 1;
+}
+
+/* Meta row: set id + card set id */
+.card-item-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.card-item-set-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bg0);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    padding: 2px 9px;
+    border-radius: 100px;
+    line-height: 1.5;
+}
+
+.card-item-card-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    color: var(--text3);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    padding: 2px 9px;
+    border-radius: 100px;
+    line-height: 1.5;
+}
+
+/* Card name */
+.card-item-name {
+    font-family: 'Cinzel', serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text1);
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+}
+
+/* Set name below the card name */
+.card-item-set-name {
+    font-size: 10.5px;
+    color: var(--text3);
+    letter-spacing: 0.06em;
+    font-style: italic;
+    margin-top: -4px;
+}
+
+/* Tags row: color + type */
+.card-item-tags {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+}
+
+.card-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 100px;
+    line-height: 1.4;
+}
+
+.card-tag--color {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text2);
+}
+
+.card-tag--type {
+    background: rgba(26,188,156,0.08);
+    border: 1px solid rgba(26,188,156,0.20);
+    color: var(--teal);
+}
+
+/* Color dot inside the color tag */
+.card-tag-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* CTA link */
+.card-item-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    transition: color var(--t-fast);
+    align-self: flex-start;
+    width: 100%;
+}
+
+    .card-item-cta:hover {
+        color: var(--gold-light);
+    }
+
+.card-item-arrow {
+    display: inline-block;
+    transition: transform var(--t-fast);
+}
+
+/* ── Loading state ──────────────────────────────────────────── */
+.cards-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 100px 40px;
+    text-align: center;
+}
+
+.cards-loading-skull {
+    font-size: 44px;
+    animation: skullPulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px rgba(200,146,42,0.35));
+}
+
+.cards-loading p {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text3);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cards-hero {
+        padding: 56px 24px 40px;
+    }
+
+    .cards-container {
+        padding: 32px 24px 60px;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 14px;
+    }
+
+    .cards-count-hint {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .card-item-body {
+        padding: 12px 12px 10px;
+        gap: 6px;
+    }
+
+    .card-item-name {
+        font-size: 12px;
+    }
+}

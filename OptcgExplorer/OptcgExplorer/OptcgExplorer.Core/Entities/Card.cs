@@ -12,5 +12,9 @@
         public string CardType { get; init; } = string.Empty;
 
         public string CardImage { get; init; } = string.Empty;
+
+        public string Rarity { get; init; } = string.Empty;
+
+        public string? CardText { get; init; }
     }
 }

@@ -14,7 +14,7 @@ namespace OptcgExplorer.UseCases.Features.Sets.GetSets
         public async Task<GetSetsResult> HandleAsync(GetSetsQuery query,
             CancellationToken cancellationToken = default)
         {
-            var sets = await _setService.GetSetAsync(cancellationToken);
+            var sets = await _setService.GetSetsAsync(cancellationToken);
 
             return new GetSetsResult
             {

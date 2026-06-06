@@ -1,4 +1,6 @@
 using OptcgExplorer.Infrastructure.Services;
+using OptcgExplorer.UseCases.Features.Cards.GetAllSetCards;
+using OptcgExplorer.UseCases.Features.Cards.GetCardsBySetId;
 using OptcgExplorer.UseCases.Features.Sets.GetSets;
 using OptcgExplorer.UseCases.Interfaces;
 using OptcgExplorer.Web.Components;
@@ -10,8 +12,15 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<GetSetsHandler>();
+builder.Services.AddScoped<GetAllSetCardsHandler>();
+builder.Services.AddScoped<GetCardsBySetIdHandler>();
 
 builder.Services.AddHttpClient<ISetService, SetService>(client =>
+{
+    client.BaseAddress = new Uri("https://www.optcgapi.com/");
+});
+
+builder.Services.AddHttpClient<ICardService, CardService>(client =>
 {
     client.BaseAddress = new Uri("https://www.optcgapi.com/");
 });

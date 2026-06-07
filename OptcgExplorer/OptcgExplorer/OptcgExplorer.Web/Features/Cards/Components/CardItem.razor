@@ -2,19 +2,8 @@
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 @rendermode InteractiveServer
 
-
 <div class="card-item"
      @onclick="HandleClick">
-
-    <h1>@_counter</h1>
-
-    <button @onclick="Increment">
-        Increment
-    </button>
-
-    <button @onclick="HandleClick">
-        TEST CLICK
-    </button>
 
     <div class="card-item-glow"></div>
 
@@ -45,9 +34,6 @@
         <h3 class="card-item-name">
             @Card.CardName
         </h3>
-        <h1 style="color:red">
-            CARD ITEM COMPONENT
-        </h1>
         <p class="card-item-set-name">
             @Card.SetName
         </p>
@@ -70,14 +56,9 @@
 
         </div>
 
-        <a @onclick="HandleClick" class="card-item-cta">
-            View Details <span class="card-item-arrow">→</span>
-        </a>
 
     </div>
-    <a @onclick="HandleClick" class="card-item-cta">
-        View Details <span class="card-item-arrow">→</span>
-    </a>
+    
 </div>
 
 @code {
@@ -90,6 +71,11 @@
     [Parameter]
     public EventCallback<Card> OnSelected { get; set; }
 
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("CardItem initialized");
+    }
+
     private async Task HandleClick()
     {
         Console.WriteLine($"Clicked {Card.CardName}");
@@ -97,32 +83,4 @@
         await OnSelected.InvokeAsync(Card);
     }
 
-    private int _counter;
-
-    private void Increment()
-    {
-        _counter++;
-    }
 }
-
-
-
-@* <button @onclick="HandleClick">
-    CLICK @Card.CardName
-</button>
-
-@code {
-
-    [Parameter]
-    public Card Card { get; set; } = default!;
-
-    [Parameter]
-    public EventCallback<Card> OnSelected { get; set; }
-
-    private async Task HandleClick()
-    {
-        Console.WriteLine($"Clicked {Card.CardName}");
-
-        await OnSelected.InvokeAsync(Card);
-    }
-} *@

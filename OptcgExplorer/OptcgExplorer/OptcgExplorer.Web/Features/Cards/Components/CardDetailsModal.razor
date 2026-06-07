@@ -9,15 +9,7 @@
     <div class="modal-backdrop" @onclick="Close">
 
         <div class="modal-container" @onclick:stopPropagation="true">
-            <h1>@_counter</h1>
-
-            <button @onclick="Increment">
-                Increment
-            </button>
-
-            <button @onclick="Close">
-                CLOSE TEST
-            </button>
+            
             <button class="modal-close" @onclick="Close">
                 <span class="modal-close-icon">✕</span>
             </button>
@@ -103,10 +95,4 @@ sd sdac
         await OnClose.InvokeAsync();
     }
 
-    private int _counter;
-
-    private void Increment()
-    {
-        _counter++;
-    }
 }

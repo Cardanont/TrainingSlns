@@ -1,5 +1,128 @@
-﻿<h3>CardItem</h3>
+﻿@using OptcgExplorer.Core.Entities
+@using static Microsoft.AspNetCore.Components.Web.RenderMode
+@rendermode InteractiveServer
+
+
+<div class="card-item"
+     @onclick="HandleClick">
+
+    <h1>@_counter</h1>
+
+    <button @onclick="Increment">
+        Increment
+    </button>
+
+    <button @onclick="HandleClick">
+        TEST CLICK
+    </button>
+
+    <div class="card-item-glow"></div>
+
+    <div class="card-item-image-wrap">
+        <img src="@Card.CardImage"
+             class="card-item-image"
+             alt="@Card.CardName" />
+
+        <div class="card-item-image-overlay"></div>
+
+        <span class="card-item-rarity">
+            @Card.Rarity
+        </span>
+    </div>
+
+    <div class="card-item-body">
+
+        <div class="card-item-meta">
+            <span class="card-item-set-id">
+                @Card.SetId
+            </span>
+
+            <span class="card-item-card-id">
+                @Card.CardSetId
+            </span>
+        </div>
+
+        <h3 class="card-item-name">
+            @Card.CardName
+        </h3>
+        <h1 style="color:red">
+            CARD ITEM COMPONENT
+        </h1>
+        <p class="card-item-set-name">
+            @Card.SetName
+        </p>
+
+        <div class="card-item-tags">
+
+            <span class="card-tag card-tag--color">
+
+                <span class="card-tag-dot"
+                      style="background: var(--card-color-@(Card.CardColor?.ToLower() ?? "default"))">
+                </span>
+
+                @Card.CardColor
+
+            </span>
+
+            <span class="card-tag card-tag--type">
+                @Card.CardType
+            </span>
+
+        </div>
+
+        <a @onclick="HandleClick" class="card-item-cta">
+            View Details <span class="card-item-arrow">→</span>
+        </a>
+
+    </div>
+    <a @onclick="HandleClick" class="card-item-cta">
+        View Details <span class="card-item-arrow">→</span>
+    </a>
+</div>
 
 @code {
 
+    
+
+    [Parameter]
+    public Card Card { get; set; } = default;
+
+    [Parameter]
+    public EventCallback<Card> OnSelected { get; set; }
+
+    private async Task HandleClick()
+    {
+        Console.WriteLine($"Clicked {Card.CardName}");
+
+        await OnSelected.InvokeAsync(Card);
+    }
+
+    private int _counter;
+
+    private void Increment()
+    {
+        _counter++;
+    }
 }
+
+
+
+@* <button @onclick="HandleClick">
+    CLICK @Card.CardName
+</button>
+
+@code {
+
+    [Parameter]
+    public Card Card { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<Card> OnSelected { get; set; }
+
+    private async Task HandleClick()
+    {
+        Console.WriteLine($"Clicked {Card.CardName}");
+
+        await OnSelected.InvokeAsync(Card);
+    }
+} *@

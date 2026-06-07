@@ -1,5 +1,112 @@
-﻿<h3>CardDetailsModal</h3>
+﻿@using OptcgExplorer.Core.Entities
+@using static Microsoft.AspNetCore.Components.Web.RenderMode
+@rendermode InteractiveServer
+
+@if (IsVisible && Card is not null)
+{
+
+    
+    <div class="modal-backdrop" @onclick="Close">
+
+        <div class="modal-container" @onclick:stopPropagation="true">
+            <h1>@_counter</h1>
+
+            <button @onclick="Increment">
+                Increment
+            </button>
+
+            <button @onclick="Close">
+                CLOSE TEST
+            </button>
+            <button class="modal-close" @onclick="Close">
+                <span class="modal-close-icon">✕</span>
+            </button>
+
+            <!-- Left: card image -->
+            <div class="modal-image-col">
+                <div class="modal-image-wrap">
+                    <img src="@Card.CardImage"
+                         alt="@Card.CardName"
+                         class="modal-image" />
+                    <div class="modal-image-shine"></div>
+                </div>
+                <span class="modal-rarity-badge">@Card.Rarity</span>
+            </div>
+
+            <!-- Right: card details -->
+            <div class="modal-details-col">
+
+                <div class="modal-meta">
+                    <span class="modal-set-id-badge">@Card.SetId</span>
+                    <span class="modal-card-id-badge">@Card.CardSetId</span>
+                </div>
+
+                <h3 class="modal-card-name">@Card.CardName</h3>
+                <p class="modal-set-name">@Card.SetName</p>
+
+                <div class="modal-divider"></div>
+
+                <ul class="modal-stats">
+                    <li class="modal-stat">
+                        <span class="modal-stat-label">Type</span>
+                        <span class="modal-stat-value modal-stat-value--type">@Card.CardType</span>
+                    </li>
+                    <li class="modal-stat">
+                        <span class="modal-stat-label">Color</span>
+                        <span class="modal-stat-value">
+                            <span class="modal-color-dot"
+                                  style="background:var(--card-color-@(Card.CardColor?.ToLower() ?? "default"))">
+                            </span>
+                            @Card.CardColor
+                        </span>
+                    </li>
+                    <li class="modal-stat">
+                        <span class="modal-stat-label">Rarity</span>
+                        <span class="modal-stat-value">@Card.Rarity</span>
+                    </li>
+                </ul>
+
+                @if (!string.IsNullOrWhiteSpace(Card.CardText))
+                {
+                    <div class="modal-divider"></div>
+                    <div class="modal-card-text">
+                        <span class="modal-card-text-label">Card Text</span>
+                        <p class="modal-card-text-body">@Card.CardText</p>
+                    </div>
+                }
+
+                <a href="/cards/@Card.SetId" class="modal-cta">
+                    View Full Details <span class="modal-cta-arrow">→</span>
+                </a>
+
+            </div>
+
+        </div>
+sd sdac
+    </div>
+}
+
+
 
 @code {
+    [Parameter]
+    public Card? Card { get; set; }
 
+    [Parameter]
+    public bool IsVisible { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    private async Task Close()
+    {
+        await OnClose.InvokeAsync();
+    }
+
+    private int _counter;
+
+    private void Increment()
+    {
+        _counter++;
+    }
 }

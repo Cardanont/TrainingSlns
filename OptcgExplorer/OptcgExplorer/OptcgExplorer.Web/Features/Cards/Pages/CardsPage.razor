@@ -4,11 +4,19 @@
 @using Microsoft.AspNetCore.Components.Web
 @using OptcgExplorer.UseCases.Features.Cards.GetAllSetCards
 @using OptcgExplorer.UseCases.Features.Cards.GetCardsBySetId
+@using OptcgExplorer.Web.Features.Cards.Components
 @inject GetAllSetCardsHandler GetAllSetCardsHandler
 @inject GetCardsBySetIdHandler GetCardsBySetIdHandler
 
 
 <PageTitle>Sets Card — Grand Card Line</PageTitle>
+
+
+<h1>@_counter</h1>
+
+<button @onclick="Increment">
+    Increment
+</button>
 
 <div class="cards-page">
 
@@ -20,7 +28,14 @@
                 OPTCG API
                 <span class="cards-eyebrow-line"></span>
             </span>
-            <h1 class="cards-title">All Sets Cards</h1>
+            @if(SetId is null)
+            {
+                <h1 class="cards-title">All Sets Cards</h1>
+            }
+            else
+            {
+                <h1 class="cards-title">Set Cards</h1>
+            }
             <p class="cards-subtitle">Browse every official release — from OP-01 Romance Dawn to the latest expansion.</p>
         </div>
     </div>
@@ -46,7 +61,7 @@
             <div class="cards-grid">
                 @foreach (var card in _cards)
                 {
-                    <div class="card-item">
+                    <div class="card-item" @onclick="() => ShowCardDetails(card)">
                         <div class="card-item-glow"></div>
 
                         <div class="card-item-image-wrap">
@@ -71,12 +86,13 @@
                                 </span>
                                 <span class="card-tag card-tag--type">@card.CardType</span>
                             </div>
-
-                            <a href="/cards/@card.SetId" class="card-item-cta">
-                                View Details <span class="card-item-arrow">→</span>
-                            </a>
+                            
                         </div>
                     </div>
+
+                    @* <CardItem
+                        Card ="card"
+                        OnSelected="ShowCardDetails" /> *@
                 }
             </div>
         }
@@ -84,12 +100,19 @@
 
 </div>
 
+<CardDetailsModal
+    Card ="_selectedCard"
+    IsVisible = "_showModal"
+    OnClose="CloseModal" />
+
 
 @code {
 
     [Parameter]
     public string? SetId { get; set; }
     private IReadOnlyCollection<Card> _cards = [];
+    private Card? _selectedCard;
+    private bool _showModal;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -111,4 +134,22 @@
 
     }
 
+    private void ShowCardDetails(Card card)
+    {
+        _selectedCard = card;
+        _showModal = true;
+    }
+
+    private void CloseModal()
+    {
+        _showModal = false;
+        _selectedCard = null;
+    }
+
+    private int _counter;
+
+    private void Increment()
+    {
+        _counter++;
+    }
 }

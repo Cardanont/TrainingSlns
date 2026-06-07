@@ -8,15 +8,7 @@
 @inject GetAllSetCardsHandler GetAllSetCardsHandler
 @inject GetCardsBySetIdHandler GetCardsBySetIdHandler
 
-
 <PageTitle>Sets Card — Grand Card Line</PageTitle>
-
-
-<h1>@_counter</h1>
-
-<button @onclick="Increment">
-    Increment
-</button>
 
 <div class="cards-page">
 
@@ -61,7 +53,7 @@
             <div class="cards-grid">
                 @foreach (var card in _cards)
                 {
-                    <div class="card-item" @onclick="() => ShowCardDetails(card)">
+                    @* <div class="card-item" @onclick="() => ShowCardDetails(card)">
                         <div class="card-item-glow"></div>
 
                         <div class="card-item-image-wrap">
@@ -89,10 +81,10 @@
                             
                         </div>
                     </div>
-
-                    @* <CardItem
+ *@
+                    <CardItem
                         Card ="card"
-                        OnSelected="ShowCardDetails" /> *@
+                        OnSelected="ShowCardDetails" />
                 }
             </div>
         }
@@ -146,10 +138,4 @@
         _selectedCard = null;
     }
 
-    private int _counter;
-
-    private void Increment()
-    {
-        _counter++;
-    }
 }

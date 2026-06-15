@@ -1,13 +1,11 @@
 ﻿@using OptcgExplorer.Core.Entities
-@using static Microsoft.AspNetCore.Components.Web.RenderMode
-@rendermode InteractiveServer
 
 <div class="card-item"
      @onclick="HandleClick">
 
     <div class="card-item-glow"></div>
 
-    <div class="card-item-image-wrap">
+    <div @onclick="HandleClick" class="card-item-image-wrap">
         <img src="@Card.CardImage"
              class="card-item-image"
              alt="@Card.CardName" />
@@ -58,12 +56,10 @@
 
 
     </div>
-    
+
 </div>
 
 @code {
-
-    
 
     [Parameter]
     public Card Card { get; set; } = default;

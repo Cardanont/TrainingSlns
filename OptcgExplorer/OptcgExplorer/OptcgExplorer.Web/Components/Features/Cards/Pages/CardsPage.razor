@@ -1,16 +1,19 @@
 ﻿@page "/cards"
 @page "/cards/{SetId}"
-@using OptcgExplorer.Core.Entities
 @using Microsoft.AspNetCore.Components.Web
+@using OptcgExplorer.Core.Entities
 @using OptcgExplorer.UseCases.Features.Cards.GetAllSetCards
 @using OptcgExplorer.UseCases.Features.Cards.GetCardsBySetId
-@using OptcgExplorer.Web.Features.Cards.Components
+@using OptcgExplorer.Web.Components.Features.Cards.Components
 @inject GetAllSetCardsHandler GetAllSetCardsHandler
 @inject GetCardsBySetIdHandler GetCardsBySetIdHandler
 
 <PageTitle>Sets Card — Grand Card Line</PageTitle>
 
 <div class="cards-page">
+
+
+    
 
     <div class="cards-hero">
         <div class="cards-hero-bg"></div>
@@ -42,6 +45,7 @@
         }
         else
         {
+
             <div class="cards-count-bar">
                 <span class="cards-count-label">
                     <span class="cards-count-number">@_cards.Count()</span> cards found
@@ -80,8 +84,10 @@
                             </div>
                             
                         </div>
-                    </div>
- *@
+                    </div> *@
+                    @* <TestComponent/> *@
+
+
                     <CardItem
                         Card ="card"
                         OnSelected="ShowCardDetails" />

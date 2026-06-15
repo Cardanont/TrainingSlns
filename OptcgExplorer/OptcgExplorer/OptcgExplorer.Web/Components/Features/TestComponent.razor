@@ -1,0 +1,22 @@
+﻿
+<h1>TEST COMPONENT</h1>
+
+
+
+@code {
+    private int _count;
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("TEST COMPONENT INITIALIZED");
+    }
+
+    private void Increment()
+    {
+        _count++;
+    }
+}
+
+<button @onclick="Increment">
+    Count: @_count
+</button>

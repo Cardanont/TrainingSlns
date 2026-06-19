@@ -4,18 +4,19 @@
 
 @if (IsVisible && Card is not null)
 {
-
-    
     <div class="modal-backdrop" @onclick="Close">
 
         <div class="modal-container" @onclick:stopPropagation="true">
-            
+
             <button class="modal-close" @onclick="Close">
                 <span class="modal-close-icon">✕</span>
             </button>
 
-            <!-- Left: card image -->
-            <div class="modal-image-col">
+            <!-- Hero: card image — the star of the show -->
+            <div class="modal-card-hero">
+                <div class="modal-card-glow"
+                     style="--glow-color: var(--card-color-@(Card.CardColor?.ToLower() ?? "default"))">
+                </div>
                 <div class="modal-image-wrap">
                     <img src="@Card.CardImage"
                          alt="@Card.CardName"
@@ -25,8 +26,8 @@
                 <span class="modal-rarity-badge">@Card.Rarity</span>
             </div>
 
-            <!-- Right: card details -->
-            <div class="modal-details-col">
+            <!-- Details panel below the card -->
+            <div class="modal-details-panel">
 
                 <div class="modal-meta">
                     <span class="modal-set-id-badge">@Card.SetId</span>
@@ -38,25 +39,25 @@
 
                 <div class="modal-divider"></div>
 
-                <ul class="modal-stats">
-                    <li class="modal-stat">
-                        <span class="modal-stat-label">Type</span>
-                        <span class="modal-stat-value modal-stat-value--type">@Card.CardType</span>
-                    </li>
-                    <li class="modal-stat">
-                        <span class="modal-stat-label">Color</span>
-                        <span class="modal-stat-value">
+                <div class="modal-stats-row">
+                    <div class="modal-stat-chip">
+                        <span class="modal-stat-chip-label">Type</span>
+                        <span class="modal-stat-chip-value modal-stat-chip-value--type">@Card.CardType</span>
+                    </div>
+                    <div class="modal-stat-chip">
+                        <span class="modal-stat-chip-label">Color</span>
+                        <span class="modal-stat-chip-value">
                             <span class="modal-color-dot"
                                   style="background:var(--card-color-@(Card.CardColor?.ToLower() ?? "default"))">
                             </span>
                             @Card.CardColor
                         </span>
-                    </li>
-                    <li class="modal-stat">
-                        <span class="modal-stat-label">Rarity</span>
-                        <span class="modal-stat-value">@Card.Rarity</span>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="modal-stat-chip">
+                        <span class="modal-stat-chip-label">Rarity</span>
+                        <span class="modal-stat-chip-value">@Card.Rarity</span>
+                    </div>
+                </div>
 
                 @if (!string.IsNullOrWhiteSpace(Card.CardText))
                 {
@@ -74,7 +75,7 @@
             </div>
 
         </div>
-sd sdac
+
     </div>
 }
 

@@ -69,12 +69,11 @@
 
     protected override void OnInitialized()
     {
-        Console.WriteLine("CardItem initialized");
+        // Console.WriteLine("CardItem initialized");
     }
 
     private async Task HandleClick()
     {
-        Console.WriteLine($"Clicked {Card.CardName}");
 
         await OnSelected.InvokeAsync(Card);
     }

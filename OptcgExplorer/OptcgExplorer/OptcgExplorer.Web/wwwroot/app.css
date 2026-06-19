@@ -2231,6 +2231,10 @@ img {
 }
 
 
+/* ================================================================
+   CARD DETAILS MODAL  — replace previous modal block in app.css
+   ================================================================ */
+
 /* ── Backdrop ───────────────────────────────────────────────── */
 .modal-backdrop {
     position: fixed;
@@ -2240,10 +2244,10 @@ img {
     align-items: center;
     justify-content: center;
     padding: 24px;
-    background: rgba(4, 5, 8, 0.82);
-    backdrop-filter: blur(10px) saturate(140%);
-    -webkit-backdrop-filter: blur(10px) saturate(140%);
-    animation: modalFadeIn 0.25s ease both;
+    background: rgba(4, 5, 8, 0.85);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    animation: modalFadeIn 0.22s ease both;
 }
 
 @keyframes modalFadeIn {
@@ -2256,53 +2260,43 @@ img {
     }
 }
 
-/* ── Container ──────────────────────────────────────────────── */
+/* ── Container — narrow portrait card ──────────────────────── */
 .modal-container {
     position: relative;
     display: flex;
-    gap: 32px;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
     background: var(--bg1);
     border: 1px solid var(--border-bright);
-    border-radius: 24px;
-    padding: 32px;
-    max-width: 780px;
+    border-radius: 28px;
     width: 100%;
-    max-height: 90vh;
+    max-width: 400px;
+    max-height: 92vh;
     overflow-y: auto;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(200,146,42,0.10), inset 0 1px 0 rgba(255,255,255,0.04);
-    animation: modalSlideUp 0.35s cubic-bezier(0.22,1,0.36,1) both;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.70), 0 0 0 1px rgba(200,146,42,0.08), inset 0 1px 0 rgba(255,255,255,0.04);
+    animation: modalSlideUp 0.38s cubic-bezier(0.22,1,0.36,1) both;
 }
 
-    /* Subtle top-edge gold gleam */
+    /* Top-edge gold gleam */
     .modal-container::before {
         content: '';
         position: absolute;
         top: 0;
-        left: 15%;
-        right: 15%;
+        left: 20%;
+        right: 20%;
         height: 1px;
         background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        opacity: 0.55;
         border-radius: 1px;
-        opacity: 0.6;
-    }
-
-    /* Background radial glow */
-    .modal-container::after {
-        content: '';
-        position: absolute;
-        top: -40%;
-        left: -20%;
-        width: 140%;
-        height: 100%;
-        background: radial-gradient(ellipse 70% 50% at 30% 0%, rgba(200,146,42,0.05) 0%, transparent 60%);
+        z-index: 2;
         pointer-events: none;
-        z-index: 0;
     }
 
 @keyframes modalSlideUp {
     from {
         opacity: 0;
-        transform: translateY(28px) scale(0.97);
+        transform: translateY(32px) scale(0.96);
     }
 
     to {
@@ -2311,108 +2305,142 @@ img {
     }
 }
 
+/* ── Scrollbar ──────────────────────────────────────────────── */
+.modal-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.modal-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-container::-webkit-scrollbar-thumb {
+    background: var(--bg3);
+    border-radius: 2px;
+}
+
 /* ── Close button ───────────────────────────────────────────── */
 .modal-close {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    z-index: 10;
-    width: 34px;
-    height: 34px;
+    top: 14px;
+    right: 14px;
+    z-index: 20;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     border: 1px solid var(--border);
-    background: var(--bg2);
+    background: rgba(8,9,13,0.70);
     color: var(--text3);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    backdrop-filter: blur(6px);
     transition: border-color var(--t-fast), color var(--t-fast), background var(--t-fast), transform var(--t-fast);
 }
 
     .modal-close:hover {
         border-color: var(--gold);
         color: var(--gold-light);
-        background: rgba(200,146,42,0.10);
+        background: rgba(200,146,42,0.12);
         transform: rotate(90deg);
     }
 
 .modal-close-icon {
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1;
-    font-style: normal;
 }
 
-/* ── Left column: image ─────────────────────────────────────── */
-.modal-image-col {
+/* ── Card hero — big image up top ───────────────────────────── */
+.modal-card-hero {
     position: relative;
-    z-index: 1;
-    flex-shrink: 0;
-    width: 220px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
+    padding: 28px 28px 20px;
+    background: var(--bg2);
+    border-radius: 28px 28px 0 0;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* Dynamic color glow behind the card, driven by card color */
+.modal-card-glow {
+    position: absolute;
+    bottom: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--glow-color) 30%, transparent) 0%, transparent 70%);
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.75;
 }
 
 .modal-image-wrap {
     position: relative;
-    width: 100%;
-    border-radius: 14px;
+    z-index: 1;
+    width: 355px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.55), 0 0 0 1px rgba(200,146,42,0.18);
     aspect-ratio: 3 / 4;
-    background: var(--bg2);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(200,146,42,0.22), 0 0 40px rgba(200,146,42,0.08);
+    background: var(--bg3);
+    transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
 }
+
+    .modal-image-wrap:hover {
+        transform: scale(1.025) translateY(-4px);
+        box-shadow: 0 28px 72px rgba(0,0,0,0.75), 0 0 0 1px rgba(200,146,42,0.40), 0 0 60px rgba(200,146,42,0.14);
+    }
 
 .modal-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
 }
 
-.modal-image-wrap:hover .modal-image {
-    transform: scale(1.03);
-}
-
-/* Diagonal shine sweep */
+/* Diagonal shine on image */
 .modal-image-shine {
     position: absolute;
     inset: 0;
-    background: linear-gradient( 135deg, rgba(255,255,255,0.08) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.04) 100% );
+    background: linear-gradient( 135deg, rgba(255,255,255,0.10) 0%, transparent 38%, transparent 62%, rgba(255,255,255,0.04) 100% );
     pointer-events: none;
 }
 
-/* Rarity badge under the image */
+/* Rarity badge below the image */
 .modal-rarity-badge {
+    position: relative;
+    z-index: 1;
+    margin-top: 16px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 500;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.20em;
     text-transform: uppercase;
     color: var(--bg0);
     background: linear-gradient(135deg, var(--gold-light), var(--gold));
-    padding: 4px 16px;
+    padding: 4px 18px;
     border-radius: 100px;
-    box-shadow: 0 2px 12px rgba(200,146,42,0.30);
-    line-height: 1.4;
+    box-shadow: 0 2px 14px rgba(200,146,42,0.35);
+    line-height: 1.5;
 }
 
-/* ── Right column: details ──────────────────────────────────── */
-.modal-details-col {
-    position: relative;
-    z-index: 1;
-    flex: 1;
+/* ── Details panel below the image ─────────────────────────── */
+.modal-details-panel {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 14px;
-    min-width: 0;
-    padding-top: 4px;
+    padding: 24px 24px 26px;
 }
 
-/* Set id + card id badges */
+/* Meta: set id + card id */
 .modal-meta {
     display: flex;
     align-items: center;
@@ -2422,7 +2450,7 @@ img {
 
 .modal-set-id-badge {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 9.5px;
+    font-size: 9px;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -2435,7 +2463,7 @@ img {
 
 .modal-card-id-badge {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 9.5px;
+    font-size: 9px;
     font-weight: 500;
     letter-spacing: 0.10em;
     color: var(--text3);
@@ -2446,19 +2474,19 @@ img {
     line-height: 1.5;
 }
 
-/* Card name */
+/* Name + set name */
 .modal-card-name {
     font-family: 'Cinzel', serif;
-    font-size: clamp(18px, 3vw, 26px);
+    font-size: 20px;
     font-weight: 700;
     color: var(--text1);
     letter-spacing: 0.05em;
     line-height: 1.2;
+    margin-top: -2px;
 }
 
-/* Set name */
 .modal-set-name {
-    font-size: 12px;
+    font-size: 11.5px;
     color: var(--text3);
     letter-spacing: 0.08em;
     font-style: italic;
@@ -2470,64 +2498,64 @@ img {
     height: 1px;
     background: linear-gradient(90deg, var(--border-bright), transparent);
     border: none;
-}
-
-/* Stats list */
-.modal-stats {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.modal-stat {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.modal-stat-label {
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--text3);
     flex-shrink: 0;
 }
 
-.modal-stat-value {
-    font-size: 13px;
+/* Stats as a horizontal chip row ─────────────────────────── */
+.modal-stats-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.modal-stat-chip {
+    flex: 1;
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 10px 12px;
+}
+
+.modal-stat-chip-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    color: var(--text3);
+}
+
+.modal-stat-chip-value {
+    font-size: 12.5px;
     font-weight: 600;
     color: var(--text1);
     letter-spacing: 0.04em;
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
 }
 
-.modal-stat-value--type {
-    color: var(--teal);
-    background: rgba(26,188,156,0.08);
-    border: 1px solid rgba(26,188,156,0.20);
-    font-size: 10.5px;
-    letter-spacing: 0.12em;
+.modal-stat-chip-value--type {
+    font-size: 11px;
+    letter-spacing: 0.10em;
     text-transform: uppercase;
-    padding: 3px 11px;
-    border-radius: 100px;
+    color: var(--teal);
 }
 
 /* Color dot */
 .modal-color-dot {
     display: inline-block;
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     flex-shrink: 0;
     box-shadow: 0 0 6px currentColor;
 }
 
-/* Card text block */
+/* Card text */
 .modal-card-text {
     display: flex;
     flex-direction: column;
@@ -2535,7 +2563,7 @@ img {
 }
 
 .modal-card-text-label {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 700;
     letter-spacing: 0.20em;
     text-transform: uppercase;
@@ -2543,9 +2571,9 @@ img {
 }
 
 .modal-card-text-body {
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--text2);
-    line-height: 1.75;
+    line-height: 1.80;
     background: rgba(255,255,255,0.03);
     border: 1px solid var(--border);
     border-radius: var(--r-md);
@@ -2555,22 +2583,23 @@ img {
 
 /* CTA */
 .modal-cta {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 7px;
-    margin-top: auto;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 4px;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--bg0);
     background: linear-gradient(135deg, var(--gold-light), var(--gold));
-    padding: 11px 22px;
+    padding: 13px 22px;
     border-radius: var(--r-sm);
     border: none;
     cursor: pointer;
     text-decoration: none;
-    align-self: flex-start;
     box-shadow: 0 4px 18px rgba(200,146,42,0.30);
     transition: transform var(--t-fast), box-shadow var(--t-fast), filter var(--t-fast);
     position: relative;
@@ -2584,7 +2613,7 @@ img {
         left: -100%;
         width: 60%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.20), transparent);
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
         transition: left 0.45s ease;
     }
 
@@ -2604,56 +2633,32 @@ img {
 }
 
 .modal-cta:hover .modal-cta-arrow {
-    transform: translateX(3px);
-}
-
-/* ── Scrollbar inside modal ─────────────────────────────────── */
-.modal-container::-webkit-scrollbar {
-    width: 4px;
-}
-
-.modal-container::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.modal-container::-webkit-scrollbar-thumb {
-    background: var(--bg3);
-    border-radius: 2px;
+    transform: translateX(4px);
 }
 
 /* ── Responsive ─────────────────────────────────────────────── */
-@media (max-width: 640px) {
+@media (max-width: 480px) {
     .modal-backdrop {
-        padding: 16px;
+        padding: 0;
         align-items: flex-end;
     }
 
     .modal-container {
-        flex-direction: column;
-        gap: 20px;
-        padding: 24px 20px;
-        border-radius: 20px 20px 0 0;
-        max-height: 92vh;
+        max-width: 100%;
+        border-radius: 24px 24px 0 0;
+        max-height: 95vh;
     }
 
-    .modal-image-col {
-        width: 100%;
-        flex-direction: row;
-        align-items: flex-end;
-        gap: 16px;
+    .modal-card-hero {
+        border-radius: 24px 24px 0 0;
+        padding: 24px 20px 16px;
     }
 
     .modal-image-wrap {
-        width: 130px;
-        flex-shrink: 0;
+        width: 200px;
     }
 
-    .modal-rarity-badge {
-        align-self: flex-start;
-        margin-top: 8px;
-    }
-
-    .modal-card-name {
-        font-size: 20px;
+    .modal-stat-chip {
+        min-width: 70px;
     }
 }

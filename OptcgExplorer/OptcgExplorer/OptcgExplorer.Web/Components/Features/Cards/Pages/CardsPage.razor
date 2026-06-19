@@ -11,10 +11,6 @@
 <PageTitle>Sets Card — Grand Card Line</PageTitle>
 
 <div class="cards-page">
-
-
-    
-
     <div class="cards-hero">
         <div class="cards-hero-bg"></div>
         <div class="cards-hero-content">
@@ -46,56 +42,34 @@
         else
         {
 
-            <div class="cards-count-bar">
-                <span class="cards-count-label">
-                    <span class="cards-count-number">@_cards.Count()</span> cards found
-                </span>
-                <span class="cards-count-divider"></span>
-                <span class="cards-count-hint">One Piece Trading Card Game · English release</span>
-            </div>
+            if (_isLoading)
+            {
+                <div class="cards-loading">
+                    <div class="cards-loading-skull">☠</div>
+                    <p>Loading cards, charting the seas</p>
+                </div>
+            }
+            else
+            {
+                <div class="cards-count-bar">
+                    <span class="cards-count-label">
+                        <span class="cards-count-number">@_cards.Count()</span> cards found
+                    </span>
+                    <span class="cards-count-divider"></span>
+                    <span class="cards-count-hint">One Piece Trading Card Game · English release</span>
+                </div>
 
-            <div class="cards-grid">
-                @foreach (var card in _cards)
-                {
-                    @* <div class="card-item" @onclick="() => ShowCardDetails(card)">
-                        <div class="card-item-glow"></div>
+                <div class="cards-grid">
+                    @foreach (var card in _cards)
+                    {
 
-                        <div class="card-item-image-wrap">
-                            <img src="@card.CardImage" class="card-item-image" alt="@card.CardName" />
-                            <div class="card-item-image-overlay"></div>
-                            <span class="card-item-rarity">@card.Rarity</span>
-                        </div>
-
-                        <div class="card-item-body">
-                            <div class="card-item-meta">
-                                <span class="card-item-set-id">@card.SetId</span>
-                                <span class="card-item-card-id">@card.CardSetId</span>
-                            </div>
-
-                            <h3 class="card-item-name">@card.CardName</h3>
-                            <p class="card-item-set-name">@card.SetName</p>
-
-                            <div class="card-item-tags">
-                                <span class="card-tag card-tag--color">
-                                    <span class="card-tag-dot" style="background: var(--card-color-@(card.CardColor?.ToLower() ?? "default"))"></span>
-                                    @card.CardColor
-                                </span>
-                                <span class="card-tag card-tag--type">@card.CardType</span>
-                            </div>
-                            
-                        </div>
-                    </div> *@
-                    @* <TestComponent/> *@
-
-
-                    <CardItem
-                        Card ="card"
-                        OnSelected="ShowCardDetails" />
-                }
-            </div>
+                        <CardItem Card="card"
+                                  OnSelected="ShowCardDetails" />
+                    }
+                </div>
+            }
         }
     </div>
-
 </div>
 
 <CardDetailsModal
@@ -111,6 +85,7 @@
     private IReadOnlyCollection<Card> _cards = [];
     private Card? _selectedCard;
     private bool _showModal;
+    private bool _isLoading = true;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -121,6 +96,8 @@
             );
 
             _cards = reuslt.Cards;
+
+            _isLoading = false;
         }
         else
         {
@@ -128,6 +105,8 @@
             new GetCardsBySetIdQuery(SetId));
 
             _cards = result.Cards;
+
+            _isLoading = false;
         }
 
     }

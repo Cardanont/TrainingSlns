@@ -1,4 +1,4 @@
-﻿using OptcgExplorer.Core.Entities;
+﻿
 
 namespace OptcgExplorer.UseCases.Features.Sets.GetSets
 {

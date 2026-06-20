@@ -1,12 +1,15 @@
 ﻿@page "/cards"
-@page "/cards/{SetId}"
+@page "/cards/sets/{SetId}"
+@page "/cards/decks/{DeckId}"
 @using Microsoft.AspNetCore.Components.Web
 @using OptcgExplorer.Core.Entities
 @using OptcgExplorer.UseCases.Features.Cards.GetAllSetCards
+@using OptcgExplorer.UseCases.Features.Cards.GetCardsByDeckId
 @using OptcgExplorer.UseCases.Features.Cards.GetCardsBySetId
 @using OptcgExplorer.Web.Components.Features.Cards.Components
 @inject GetAllSetCardsHandler GetAllSetCardsHandler
 @inject GetCardsBySetIdHandler GetCardsBySetIdHandler
+@inject GetCardsByDeckIdHandler GetCardsByDeckIdHandler
 
 <PageTitle>Sets Card — Grand Card Line</PageTitle>
 
@@ -19,13 +22,17 @@
                 OPTCG API
                 <span class="cards-eyebrow-line"></span>
             </span>
-            @if(SetId is null)
+            @if(SetId is null && DeckId is null)
             {
                 <h1 class="cards-title">All Sets Cards</h1>
             }
-            else
+            else if(SetId is not null)
             {
                 <h1 class="cards-title">Set Cards</h1>
+            }
+            else
+            {
+                <h1 class="cards-title">Deck Cards</h1>
             }
             <p class="cards-subtitle">Browse every official release — from OP-01 Romance Dawn to the latest expansion.</p>
         </div>
@@ -82,6 +89,8 @@
 
     [Parameter]
     public string? SetId { get; set; }
+    [Parameter]
+    public string? DeckId { get; set; }
     private IReadOnlyCollection<Card> _cards = [];
     private Card? _selectedCard;
     private bool _showModal;
@@ -89,20 +98,32 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        if (string.IsNullOrWhiteSpace(SetId))
+
+        if (string.IsNullOrWhiteSpace(SetId) && string.IsNullOrWhiteSpace(DeckId))
         {
-            var reuslt = await GetAllSetCardsHandler.HandleAsync(
-                new GetAllSetCardsQuery()
-            );
+            {
+                var reuslt = await GetAllSetCardsHandler.HandleAsync(
+                    new GetAllSetCardsQuery()
+                );
 
-            _cards = reuslt.Cards;
+                _cards = reuslt.Cards;
 
-            _isLoading = false;
+                _isLoading = false;
+            }
         }
-        else
+        else if (!string.IsNullOrWhiteSpace(SetId))
         {
             var result = await GetCardsBySetIdHandler.HandleAsync(
             new GetCardsBySetIdQuery(SetId));
+
+            _cards = result.Cards;
+
+            _isLoading = false;
+        }
+        else if(!string.IsNullOrWhiteSpace(DeckId))
+        {
+            var result = await GetCardsByDeckIdHandler.HandleAsync(
+            new GetCardsByDeckIdQuery(DeckId));
 
             _cards = result.Cards;
 

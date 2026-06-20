@@ -1,6 +1,8 @@
 using OptcgExplorer.Infrastructure.Services;
 using OptcgExplorer.UseCases.Features.Cards.GetAllSetCards;
+using OptcgExplorer.UseCases.Features.Cards.GetCardsByDeckId;
 using OptcgExplorer.UseCases.Features.Cards.GetCardsBySetId;
+using OptcgExplorer.UseCases.Features.Decks;
 using OptcgExplorer.UseCases.Features.Sets.GetSets;
 using OptcgExplorer.UseCases.Interfaces;
 using OptcgExplorer.Web.Components;
@@ -14,6 +16,8 @@ builder.Services.AddRazorComponents()
 builder.Services.AddScoped<GetSetsHandler>();
 builder.Services.AddScoped<GetAllSetCardsHandler>();
 builder.Services.AddScoped<GetCardsBySetIdHandler>();
+builder.Services.AddScoped<GetDecksHandler>();
+builder.Services.AddScoped<GetCardsByDeckIdHandler>();
 
 builder.Services.AddHttpClient<ISetService, SetService>(client =>
 {
@@ -21,6 +25,11 @@ builder.Services.AddHttpClient<ISetService, SetService>(client =>
 });
 
 builder.Services.AddHttpClient<ICardService, CardService>(client =>
+{
+    client.BaseAddress = new Uri("https://www.optcgapi.com/");
+});
+
+builder.Services.AddHttpClient<IDeckService, DeckService>(client =>
 {
     client.BaseAddress = new Uri("https://www.optcgapi.com/");
 });

@@ -2,7 +2,7 @@ using OptcgExplorer.Infrastructure.Services;
 using OptcgExplorer.UseCases.Features.Cards.GetAllSetCards;
 using OptcgExplorer.UseCases.Features.Cards.GetCardsByDeckId;
 using OptcgExplorer.UseCases.Features.Cards.GetCardsBySetId;
-using OptcgExplorer.UseCases.Features.Decks;
+using OptcgExplorer.UseCases.Features.Decks.GetDecks;
 using OptcgExplorer.UseCases.Features.Sets.GetSets;
 using OptcgExplorer.UseCases.Interfaces;
 using OptcgExplorer.Web.Components;

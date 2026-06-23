@@ -58,6 +58,7 @@ namespace OptcgExplorer.Infrastructure.Services
                 .ToList() ?? [];
         }
 
+
         public async Task<IReadOnlyCollection<Card>> GetCardsBySetAsync(string setId, CancellationToken cancellationToken = default)
         {
             var response = await _httpClient.GetFromJsonAsync<List<CardDto>>(

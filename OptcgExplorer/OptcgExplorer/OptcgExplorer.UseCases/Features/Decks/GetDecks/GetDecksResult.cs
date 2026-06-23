@@ -1,6 +1,4 @@
-﻿
-
-namespace OptcgExplorer.UseCases.Features.Decks
+﻿namespace OptcgExplorer.UseCases.Features.Decks.GetDecks
 {
     public sealed class GetDecksResult
     {

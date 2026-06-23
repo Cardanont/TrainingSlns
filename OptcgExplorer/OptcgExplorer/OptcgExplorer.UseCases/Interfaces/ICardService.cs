@@ -2,7 +2,7 @@
 
 namespace OptcgExplorer.UseCases.Interfaces
 {
-    public  interface ICardService
+    public interface ICardService
     {
         Task<IReadOnlyCollection<Card>> GetAllSetCardsAsync(
             CancellationToken cancellationToken = default);

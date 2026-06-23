@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="DependencyInjection\" />
+    <Folder Include="Features\Dons\GetDons\" />
   </ItemGroup>
 
   <ItemGroup>

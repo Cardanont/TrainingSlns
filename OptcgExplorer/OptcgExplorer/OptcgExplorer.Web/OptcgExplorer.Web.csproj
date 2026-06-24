@@ -12,4 +12,8 @@
     <ProjectReference Include="..\OptcgExplorer.UseCases\OptcgExplorer.UseCases.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\Features\DonCards\" />
+  </ItemGroup>
+
 </Project>

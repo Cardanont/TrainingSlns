@@ -2,7 +2,7 @@
 {
     public interface IDonCardService
     {
-        Task<IReadOnlyCollection<DonCard>> GetDonCardsAsync(
+        Task<IReadOnlyCollection<DonCard>> GetAllDonCardsAsync(
             CancellationToken cancellationToken = default);
     }
 }

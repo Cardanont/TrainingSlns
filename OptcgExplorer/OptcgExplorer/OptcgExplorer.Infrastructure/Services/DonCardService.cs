@@ -16,7 +16,7 @@ namespace OptcgExplorer.Infrastructure.Services
         }
 
 
-        public async Task<IReadOnlyCollection<DonCard>> GetDonCardsAsync(CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyCollection<DonCard>> GetAllDonCardsAsync(CancellationToken cancellationToken = default)
         {
             var response = await _httpClient.GetFromJsonAsync<List<DonCardDto>>(
                 "api/allDonCards/",

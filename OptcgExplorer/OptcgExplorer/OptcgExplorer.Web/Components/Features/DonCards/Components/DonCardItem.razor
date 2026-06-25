@@ -1,0 +1,59 @@
+﻿<div class="card-item"
+     @onclick="HandleClick">
+
+    <div class="card-item-glow"></div>
+
+    <div @onclick="HandleClick" class="card-item-image-wrap">
+        <img src="@DonCard.CardImage"
+             class="card-item-image"
+             alt="@DonCard.CardName" />
+
+        <div class="card-item-image-overlay"></div>
+
+        <span class="card-item-rarity">
+            @DonCard.Rarity
+        </span>
+    </div>
+
+    <div class="card-item-body">
+
+        <div class="card-item-meta">
+            <span class="card-item-set-id">
+                @DonCard.DonId
+            </span>
+
+        </div>
+
+        <h3 class="card-item-name">
+            @DonCard.CardName
+        </h3>
+        <p class="card-item-set-name">
+            @DonCard.OptcgDonName
+        </p>
+
+        <div class="card-item-tags">
+
+            <span class="card-tag card-tag--type">
+                @DonCard.CardType
+            </span>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+@code {
+
+    [Parameter]
+    public DonCard DonCard { get; set; } = default;
+    [Parameter]
+    public EventCallback<DonCard> OnSelected { get; set; }
+
+    private async Task HandleClick()
+    {
+        await OnSelected.InvokeAsync(DonCard);
+    }
+
+}

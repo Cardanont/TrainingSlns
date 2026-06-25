@@ -2,7 +2,6 @@
 @page "/cards/sets/{SetId}"
 @page "/cards/decks/{DeckId}"
 @using Microsoft.AspNetCore.Components.Web
-@using OptcgExplorer.Core.Entities
 @using OptcgExplorer.UseCases.Features.Cards.GetAllSetCards
 @using OptcgExplorer.UseCases.Features.Cards.GetCardsByDeckId
 @using OptcgExplorer.UseCases.Features.Cards.GetCardsBySetId
@@ -19,7 +18,7 @@
         <div class="cards-hero-content">
             <span class="cards-eyebrow">
                 <span class="cards-eyebrow-line"></span>
-                OPTCG API
+                OPTCG
                 <span class="cards-eyebrow-line"></span>
             </span>
             @if(SetId is null && DeckId is null)
@@ -103,8 +102,7 @@
         {
             {
                 var reuslt = await GetAllSetCardsHandler.HandleAsync(
-                    new GetAllSetCardsQuery()
-                );
+                    new GetAllSetCardsQuery());
 
                 _cards = reuslt.Cards;
 

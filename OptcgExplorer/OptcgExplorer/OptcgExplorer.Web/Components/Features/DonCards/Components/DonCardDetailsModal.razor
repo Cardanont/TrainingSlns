@@ -1,5 +1,4 @@
-﻿
-@if (IsVisible && Card is not null)
+﻿@if (IsVisible && DonCard is not null)
 {
     <div class="modal-backdrop" @onclick="Close">
 
@@ -11,63 +10,60 @@
 
             <!-- Hero: card image — the star of the show -->
             <div class="modal-card-hero">
-                <div class="modal-card-glow"
-                     style="--glow-color: var(--card-color-@(Card.CardColor?.ToLower() ?? "default"))">
-                </div>
                 <div class="modal-image-wrap">
-                    <img src="@Card.CardImage"
-                         alt="@Card.CardName"
-                         class="modal-image" />
+                    @if (!string.IsNullOrWhiteSpace(DonCard.CardImage))
+                    {
+                        <img src="@DonCard.CardImage"
+                             alt="@DonCard.CardName"
+                             class="modal-image" />
+                    }
+                    else
+                    {
+                        <div class="modal-image-placeholder">
+                            No Image Available
+                        </div>
+                    }
                     <div class="modal-image-shine"></div>
                 </div>
-                <span class="modal-rarity-badge">@Card.Rarity</span>
+                <span class="modal-rarity-badge">@DonCard.Rarity</span>
             </div>
 
             <!-- Details panel below the card -->
             <div class="modal-details-panel">
 
                 <div class="modal-meta">
-                    <span class="modal-set-id-badge">@Card.SetId</span>
-                    <span class="modal-card-id-badge">@Card.CardSetId</span>
+                    @* <span class="modal-set-id-badge">@DonCard.DonId</span> *@
+                    <span class="modal-card-id-badge">@DonCard.CardType</span>
                 </div>
 
-                <h3 class="modal-card-name">@Card.CardName</h3>
-                <p class="modal-set-name">@Card.SetName</p>
+                <h3 class="modal-card-name">@DonCard.CardName</h3>
+                <p class="modal-set-name">@DonCard.OptcgDonName</p>
 
                 <div class="modal-divider"></div>
 
                 <div class="modal-stats-row">
                     <div class="modal-stat-chip">
                         <span class="modal-stat-chip-label">Type</span>
-                        <span class="modal-stat-chip-value modal-stat-chip-value--type">@Card.CardType</span>
-                    </div>
-                    <div class="modal-stat-chip">
-                        <span class="modal-stat-chip-label">Color</span>
-                        <span class="modal-stat-chip-value">
-                            <span class="modal-color-dot"
-                                  style="background:var(--card-color-@(Card.CardColor?.ToLower() ?? "default"))">
-                            </span>
-                            @Card.CardColor
-                        </span>
+                        <span class="modal-stat-chip-value modal-stat-chip-value--type">@DonCard.CardType</span>
                     </div>
                     <div class="modal-stat-chip">
                         <span class="modal-stat-chip-label">Rarity</span>
-                        <span class="modal-stat-chip-value">@Card.Rarity</span>
+                        <span class="modal-stat-chip-value">@DonCard.Rarity</span>
                     </div>
                 </div>
 
-                @if (!string.IsNullOrWhiteSpace(Card.CardText))
+                @if (!string.IsNullOrWhiteSpace(DonCard.CardText))
                 {
                     <div class="modal-divider"></div>
                     <div class="modal-card-text">
                         <span class="modal-card-text-label">Card Text</span>
-                        <p class="modal-card-text-body">@Card.CardText</p>
+                        <p class="modal-card-text-body">@DonCard.CardText</p>
                     </div>
                 }
 
-                <a href="/cards/@Card.SetId" class="modal-cta">
+                @* <a href="/cards/@DonCard.DonId" class="modal-cta">
                     View Full Details <span class="modal-cta-arrow">→</span>
-                </a>
+                </a> *@
 
             </div>
 
@@ -76,11 +72,10 @@
     </div>
 }
 
-
-
 @code {
+
     [Parameter]
-    public Card? Card { get; set; }
+    public DonCard? DonCard { get; set; }
 
     [Parameter]
     public bool IsVisible { get; set; }

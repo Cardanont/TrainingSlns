@@ -4,7 +4,7 @@ WORKDIR /src
 
 COPY . .
 
-WORKDIR /src/OptcgExplorer
+WORKDIR /src/OptcgExplorer/OptcgExplorer
 
 RUN dotnet restore OptcgExplorer.Web/OptcgExplorer.Web.csproj
 

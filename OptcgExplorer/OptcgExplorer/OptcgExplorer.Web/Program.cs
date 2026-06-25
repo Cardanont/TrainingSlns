@@ -1,13 +1,18 @@
 using OptcgExplorer.Infrastructure.Services;
-using OptcgExplorer.UseCases.Features.Cards.GetAllSetCards;
-using OptcgExplorer.UseCases.Features.Cards.GetCardsByDeckId;
-using OptcgExplorer.UseCases.Features.Cards.GetCardsBySetId;
-using OptcgExplorer.UseCases.Features.Decks.GetDecks;
-using OptcgExplorer.UseCases.Features.Sets.GetSets;
-using OptcgExplorer.UseCases.Interfaces;
 using OptcgExplorer.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var optcgApiUrl =
+    builder.Configuration["OptcgApi:BaseUrl"]
+    ?? throw new InvalidOperationException(
+        "OptcgApi:BaseUrl is missing.");
+
+void ConfigureApiClient(HttpClient client)
+{
+    client.BaseAddress = new Uri(optcgApiUrl);
+    client.Timeout = TimeSpan.FromSeconds(15);
+}
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -15,24 +20,16 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddScoped<GetSetsHandler>();
 builder.Services.AddScoped<GetAllSetCardsHandler>();
+builder.Services.AddScoped<GetAllDonCardsHandler>();
 builder.Services.AddScoped<GetCardsBySetIdHandler>();
 builder.Services.AddScoped<GetDecksHandler>();
 builder.Services.AddScoped<GetCardsByDeckIdHandler>();
 
-builder.Services.AddHttpClient<ISetService, SetService>(client =>
-{
-    client.BaseAddress = new Uri("https://www.optcgapi.com/");
-});
 
-builder.Services.AddHttpClient<ICardService, CardService>(client =>
-{
-    client.BaseAddress = new Uri("https://www.optcgapi.com/");
-});
-
-builder.Services.AddHttpClient<IDeckService, DeckService>(client =>
-{
-    client.BaseAddress = new Uri("https://www.optcgapi.com/");
-});
+builder.Services.AddHttpClient<ISetService, SetService>(ConfigureApiClient);
+builder.Services.AddHttpClient<ICardService, CardService>(ConfigureApiClient);
+builder.Services.AddHttpClient<IDeckService, DeckService>(ConfigureApiClient);
+builder.Services.AddHttpClient<IDonCardService, DonCardService>(ConfigureApiClient);
 
 var app = builder.Build();
 

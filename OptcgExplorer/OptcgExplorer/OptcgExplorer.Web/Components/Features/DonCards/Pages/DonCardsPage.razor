@@ -1,0 +1,97 @@
+﻿@page "/doncards"
+@using OptcgExplorer.UseCases.Features.Dons.GetAllDonCards
+@using OptcgExplorer.Web.Components.Features.DonCards.Components
+@inject GetAllDonCardsHandler GetAllDonCardsHandler
+
+<PageTitle>Don!! Cards — Grand Card Line</PageTitle>
+
+<div class="cards-page">
+    <div class="cards-hero">
+        <div class="cards-hero-bg"></div>
+        <div class="cards-hero-content">
+            <span class="cards-eyebrow">
+                <span class="cards-eyebrow-line"></span>
+                OPTCG
+                <span class="cards-eyebrow-line"></span>
+            </span>
+            <h1 class="cards-title">Don!! Cards</h1>
+            <p class="cards-subtitle">Browse every official release — from OP-01 Romance Dawn to the latest expansion.</p>
+        </div>
+    </div>
+
+    <div class="cards-container">
+        @if (_donCards is null)
+        {
+            <div class="cards-loading">
+                <div class="cards-loading-skull">☠</div>
+                <p>Charting the seas…</p>
+            </div>
+        }
+        else
+        {
+
+            if (_isLoading)
+            {
+                <div class="cards-loading">
+                    <div class="cards-loading-skull">☠</div>
+                    <p>Loading cards, charting the seas</p>
+                </div>
+            }
+            else
+            {
+                <div class="cards-count-bar">
+                    <span class="cards-count-label">
+                        <span class="cards-count-number">@_donCards.Count()</span> cards found
+                    </span>
+                    <span class="cards-count-divider"></span>
+                    <span class="cards-count-hint">One Piece Trading Card Game · English release</span>
+                </div>
+
+                <div class="cards-grid">
+                    @foreach (var donCard in _donCards)
+                    {
+
+                        <DonCardItem DonCard="donCard"
+                                  OnSelected="ShowDonCardDetails" />
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<DonCardDetailsModal
+    DonCard ="_selectedDonCard"
+    IsVisible = "_showModal"
+    OnClose="CloseModal" />
+
+@code {
+
+    private IReadOnlyCollection<DonCard> _donCards = [];
+    private DonCard? _selectedDonCard;
+    private bool _showModal;
+    private bool _isLoading = true;
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var result = await GetAllDonCardsHandler.HandleAsync(
+            new GetAllDonCardsQuery());
+
+        _donCards = result.DonCards;
+
+        _isLoading = false;
+    }
+
+    private void ShowDonCardDetails(DonCard donCard)
+    {
+        _selectedDonCard = donCard;
+        _showModal = true;
+    }
+
+    private void CloseModal()
+    {
+        _showModal = false;
+        _selectedDonCard = null;
+    }
+}

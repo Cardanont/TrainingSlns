@@ -1,0 +1,234 @@
+﻿@* About.razor *@
+@page "/about"
+
+<PageTitle>About — Grand Card Line</PageTitle>
+
+<div class="about-page">
+
+    @* ── Hero ── *@
+    <section class="about-hero">
+        <div class="about-hero-bg"></div>
+        <div class="about-particles">
+            @for (int i = 0; i < 12; i++)
+            {
+                <div class="about-particle" style="--i:@i"></div>
+            }
+        </div>
+        <div class="about-hero-content">
+            <div class="about-hero-emblem">☠</div>
+            <span class="about-eyebrow">
+                <span class="about-eyebrow-line"></span>
+                OPTCG API
+                <span class="about-eyebrow-line"></span>
+            </span>
+            <h1 class="about-title">One Piece TCG<br />Explorer</h1>
+            <p class="about-hero-lead">
+                A modern explorer for the One Piece Trading Card Game, providing an elegant
+                interface to browse cards, sets, starter decks, and game data.
+            </p>
+        </div>
+        <div class="about-hero-scroll">
+            <span>Scroll</span>
+            <div class="about-scroll-line"></div>
+        </div>
+    </section>
+
+    <div class="about-body">
+
+        @* ── Mission ── *@
+        <section class="about-section about-mission">
+            <div class="about-section-label">
+                <span class="about-section-icon">⚓</span>
+                Mission
+            </div>
+            <div class="about-section-content">
+                <h2 class="about-section-title">Why We Built This</h2>
+                <p class="about-prose">
+                    OPTCG Explorer was created to provide fans and players of the One Piece Trading Card Game
+                    with a fast, intuitive, and visually appealing way to explore official card information.
+                </p>
+                <p class="about-prose">
+                    The project also serves as a software engineering playground for experimenting with
+                    modern .NET technologies, Clean Architecture, and feature-based application design.
+                </p>
+            </div>
+        </section>
+
+        @* ── Features ── *@
+        <section class="about-section">
+            <div class="about-section-label">
+                <span class="about-section-icon">⚔️</span>
+                Features
+            </div>
+            <div class="about-section-content">
+                <h2 class="about-section-title">What's on Board</h2>
+                <div class="about-features-grid">
+                    <div class="about-feature-card">
+                        <span class="about-feature-icon">📦</span>
+                        <h4>Browse Sets</h4>
+                        <p>Explore official booster sets and expansions.</p>
+                    </div>
+                    <div class="about-feature-card">
+                        <span class="about-feature-icon">🃏</span>
+                        <h4>Browse Cards</h4>
+                        <p>View card information, rarity, attributes, and details.</p>
+                    </div>
+                    <div class="about-feature-card">
+                        <span class="about-feature-icon">⚡</span>
+                        <h4>DON!! Cards</h4>
+                        <p>Discover all DON!! cards released in the game.</p>
+                    </div>
+                    <div class="about-feature-card">
+                        <span class="about-feature-icon">🏴‍☠️</span>
+                        <h4>Deck Exploration</h4>
+                        <p>Browse starter decks and their contents.</p>
+                    </div>
+                    <div class="about-feature-card">
+                        <span class="about-feature-icon">🔍</span>
+                        <h4>Search & Analytics</h4>
+                        <p>Quickly find cards and navigate the game's growing catalog.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        @* ── Tech Stack ── *@
+        <section class="about-section about-tech-section">
+            <div class="about-section-label">
+                <span class="about-section-icon">⚙️</span>
+                Stack
+            </div>
+            <div class="about-section-content">
+                <h2 class="about-section-title">Built With</h2>
+                <div class="about-tech-grid">
+                    <div class="about-tech-pill">
+                        <span class="about-tech-dot"></span>.NET 10
+                    </div>
+                    <div class="about-tech-pill">
+                        <span class="about-tech-dot"></span>ASP.NET Core Blazor
+                    </div>
+                    <div class="about-tech-pill">
+                        <span class="about-tech-dot"></span>Clean Architecture
+                    </div>
+                    <div class="about-tech-pill">
+                        <span class="about-tech-dot"></span>Feature-Based Organization
+                    </div>
+                    <div class="about-tech-pill">
+                        <span class="about-tech-dot"></span>Dapper
+                    </div>
+                    <div class="about-tech-pill">
+                        <span class="about-tech-dot"></span>HTTP APIs
+                    </div>
+                    <div class="about-tech-pill">
+                        <span class="about-tech-dot"></span>Responsive CSS
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        @* ── Architecture ── *@
+        <section class="about-section">
+            <div class="about-section-label">
+                <span class="about-section-icon">🏛️</span>
+                Architecture
+            </div>
+            <div class="about-section-content">
+                <h2 class="about-section-title">How It's Designed</h2>
+                <p class="about-prose">
+                    OPTCG Explorer follows Clean Architecture principles, emphasizing
+                    a clear separation between concerns so each layer can evolve independently.
+                </p>
+                <ul class="about-principles-list">
+                    <li><span class="about-principle-bullet">→</span> Separation of Concerns</li>
+                    <li><span class="about-principle-bullet">→</span> Maintainable Code</li>
+                    <li><span class="about-principle-bullet">→</span> Feature Isolation</li>
+                    <li><span class="about-principle-bullet">→</span> Testability</li>
+                    <li><span class="about-principle-bullet">→</span> Scalability</li>
+                </ul>
+            </div>
+        </section>
+
+        @* ── Data Source ── *@
+        <section class="about-section">
+            <div class="about-section-label">
+                <span class="about-section-icon">🌊</span>
+                Data
+            </div>
+            <div class="about-section-content">
+                <h2 class="about-section-title">Data Source</h2>
+                <p class="about-prose">
+                    Card information and images are provided through the public
+                    <a href="https://www.optcgapi.com" target="_blank" class="about-link">OPTCG API</a>.
+                </p>
+                <div class="about-disclaimer">
+                    <span class="about-disclaimer-icon">☠</span>
+                    <p>
+                        This application is an independent community project and is not affiliated
+                        with Bandai or the official One Piece Trading Card Game.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        @* ── Roadmap ── *@
+        <section class="about-section about-roadmap-section">
+            <div class="about-section-label">
+                <span class="about-section-icon">🗺️</span>
+                Roadmap
+            </div>
+            <div class="about-section-content">
+                <h2 class="about-section-title">Future Plans</h2>
+                <div class="about-roadmap-grid">
+                    <div class="about-roadmap-item about-roadmap-item--soon">
+                        <span class="about-roadmap-status">Soon</span>
+                        <span class="about-roadmap-icon">🔍</span>
+                        <h4>Advanced Search</h4>
+                        <p>Filter cards by any attribute or combination.</p>
+                    </div>
+                    <div class="about-roadmap-item about-roadmap-item--soon">
+                        <span class="about-roadmap-status">Soon</span>
+                        <span class="about-roadmap-icon">🃏</span>
+                        <h4>Card Filtering</h4>
+                        <p>Sort and filter your card browsing experience.</p>
+                    </div>
+                    <div class="about-roadmap-item">
+                        <span class="about-roadmap-status">Planned</span>
+                        <span class="about-roadmap-icon">🏴‍☠️</span>
+                        <h4>Deck Builder</h4>
+                        <p>Construct and share your own pirate crew decks.</p>
+                    </div>
+                    <div class="about-roadmap-item">
+                        <span class="about-roadmap-status">Planned</span>
+                        <span class="about-roadmap-icon">📦</span>
+                        <h4>Collection Tracking</h4>
+                        <p>Keep a log of every card you own.</p>
+                    </div>
+                    <div class="about-roadmap-item">
+                        <span class="about-roadmap-status">Planned</span>
+                        <span class="about-roadmap-icon">❤️</span>
+                        <h4>Favourite Cards</h4>
+                        <p>Save and revisit the cards you love most.</p>
+                    </div>
+                    <div class="about-roadmap-item">
+                        <span class="about-roadmap-status">Planned</span>
+                        <span class="about-roadmap-icon">📊</span>
+                        <h4>Statistics & Analytics</h4>
+                        <p>Insights into set distributions and card trends.</p>
+                    </div>
+                    <div class="about-roadmap-item">
+                        <span class="about-roadmap-status">Future</span>
+                        <span class="about-roadmap-icon">🌐</span>
+                        <h4>Localization Support</h4>
+                        <p>Browse card data in multiple languages.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+
+@code {
+
+}
